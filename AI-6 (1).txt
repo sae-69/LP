@@ -1,0 +1,97 @@
+﻿# Knowledge Base
+positive_criteria = {
+    "exceeds_deadlines": 5,
+    "high_quality_work": 4,
+    "great_team_player": 3,
+    "consistently_improves": 2,
+    "excellent_communication": 1
+}
+
+negative_criteria = {
+    "misses_deadlines": -5,
+    "poor_quality_work": -4,
+    "poor_team_player": -3,
+    "resistant_to_feedback": -2,
+    "poor_communication": -1
+}
+
+# Rule Engine
+def evaluate_employee(positives, negatives):
+    score = 0
+    for pos in positives:
+        score += positive_criteria.get(pos, 0)
+
+    for neg in negatives:
+        score += negative_criteria.get(neg, 0)
+
+    return score
+
+# User Interface
+def user_interface():
+    print("Employee Performance Evaluation")
+   
+    print("Please enter positive criteria from the list below, separated by commas:")
+    for criterion in positive_criteria:
+        print(f"- {criterion}")
+   
+    print("\n")
+    positives_input = input("> ")
+
+    print("\nPlease enter negative criteria from the list below, separated by commas:")
+    for criterion in negative_criteria:
+        print(f"- {criterion}")
+   
+    print("\n")
+    negatives_input = input("> ")
+    positives = [item.strip() for item in positives_input.split(",")]
+    negatives = [item.strip() for item in negatives_input.split(",")]
+
+    score = evaluate_employee(positives, negatives)
+
+    print(f"\nEmployee Score: {score}\n")
+
+    if score > 10:
+        print("Performance: Outstanding")
+    elif score > 5:
+        print("Performance: Good")
+    elif score > 0:
+        print("Performance: Satisfactory")
+    else:
+        print("Performance: Needs Improvement")
+
+if __name__ == "__main__":
+    user_interface()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+> exceeds_deadlines,high_quality_work,excellent_communication
+
+Please enter negative criteria from the list below, separated by commas:
+- misses_deadlines
+- poor_quality_work
+- poor_team_player
+- resistant_to_feedback
+- poor_communication
+
+
+> poor_team_player
+
+Employee Score: 7
+
+Performance: Good
+
+[Program finished]
+
