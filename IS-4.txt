@@ -1,0 +1,27 @@
+import math
+
+p = int(input("Enter a prime number p : "))
+q = int(input("Enter a prime number q : "))
+
+n = p*q
+phi = (p-1)*(q-1)
+
+e=2
+while e<phi:
+    if math.gcd(e,phi) == 1:
+        break
+    e += 1
+   
+k=2
+d=((k*phi)+1)//e
+
+print("\nPublic key:(",e,",",n,")")
+print("\nPrivate key:(",d,",",n,")\n")
+
+msg = int(input("Enter a number message(less than n):"))
+
+C = pow(msg,e,n)
+print("Encrypyed message: ",C)
+
+M = pow(C,d,n)
+print("Decrypted message : ",M)

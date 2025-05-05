@@ -1,0 +1,11 @@
+def and_xor_with_127(input_str):
+    print("Original String : ", input_str)
+    print("\nResults after AND and XOR with 127 : \n")
+   
+    for char in input_str:
+        and_result = ord(char) & 127
+        xor_result = ord(char) ^ 127
+        print(f"Character :{char} | AND 127 : {and_result} | XOR 127:{xor_result}")
+       
+input_string = "Hello World"
+and_xor_with_127(input_string)

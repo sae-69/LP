@@ -1,0 +1,65 @@
+def columnar_encrypt(plaintext, keyword):
+    plaintext = plaintext.replace(" ", "").upper()
+    keyword = keyword.upper()
+
+    cols = len(keyword)
+    rows = (len(plaintext) + cols - 1) // cols
+    padded_length = rows * cols
+    plaintext += 'X' * (padded_length - len(plaintext))
+
+    # Fill the matrix row-wise
+    matrix = []
+    index = 0
+    for _ in range(rows):
+        matrix.append(list(plaintext[index:index+cols]))
+        index += cols
+
+    # Sort the keyword with original indices
+    key_order = sorted([(char, i) for i, char in enumerate(keyword)])
+
+    # Encrypt by reading columns in sorted key order
+    ciphertext = ""
+    for _, col_index in key_order:
+        for row in matrix:
+            ciphertext += row[col_index]
+
+    return ciphertext
+
+
+def columnar_decrypt(ciphertext, keyword):
+    keyword = keyword.upper()
+    cols = len(keyword)
+    rows = len(ciphertext) // cols
+
+    # Create an empty matrix
+    matrix = [['' for _ in range(cols)] for _ in range(rows)]
+
+    # Determine column order based on sorted keyword
+    key_order = sorted([(char, i) for i, char in enumerate(keyword)])
+
+    # Fill the matrix column-wise in the order of sorted keyword
+    index = 0
+    for _, col_index in key_order:
+        for row in range(rows):
+            matrix[row][col_index] = ciphertext[index]
+            index += 1
+
+    # Read matrix row-wise for decrypted text
+    decrypted_text = ''
+    for row in matrix:
+        decrypted_text += ''.join(row)
+
+    return decrypted_text
+
+
+# 🔽 Example Usage
+plaintext = "WEAREDISCOVERED"
+keyword = "ZEBRAS"
+
+# Encrypt
+ciphertext = columnar_encrypt(plaintext, keyword)
+print("Encrypted Text:", ciphertext)
+
+# Decrypt
+decrypted = columnar_decrypt(ciphertext, keyword)
+print("Decrypted Text:", decrypted)

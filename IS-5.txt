@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diffie-Hellman keyExchange</title>
+</head>
+<body>
+    <h2>
+        Diffie-Hellman Key Exchange
+    </h2>
+    <script>
+        //Function to calculate (a^b)%p
+        function power(a,b,p){
+            return Math.pow(a,b) % p;
+        }
+
+        var P = 11;
+        var G = 7;
+
+        var a = 4;
+        var b = 3;
+
+        var x = power(G,a,P);
+        var y = power(G,b,P);
+
+        var ka = power(y,a,P);
+        var kb = power(x,b,P);
+
+        document.write("P(prime): "+P+"<br>");
+        document.write("G(base): "+G+"<br>");
+        document.write("Alice's private key: "+a+"<br>");
+        document.write("Bobs's private key: "+b+"<br>");
+        document.write("Alice's public key: "+x+"<br>");
+        document.write("Bob's public key: "+y+"<br>");
+        document.write("Alice's secret key: "+ka+"<br>");
+        document.write("Bob's secret key: "+kb+"<br>");
+        document.write("Shared secret key: "+ka+"<br>");
+    </script>
+</body>
+</html>
